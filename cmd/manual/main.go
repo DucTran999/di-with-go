@@ -9,7 +9,7 @@ import (
 
 func main() {
 	userRepo := repository.NewUserRepository()
-	userUC := usecase.NewUserRepository(userRepo)
+	userUC := usecase.NewUserUseCase(userRepo)
 	userHdl := handler.NewUserHandler(userUC)
 
 	userHdl.RegisterUser(context.Background(), "daniel")

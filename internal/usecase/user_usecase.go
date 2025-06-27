@@ -9,7 +9,7 @@ type userUseCaseImpl struct {
 	userRepo domain.UserRepository
 }
 
-func NewUserRepository(userRepo domain.UserRepository) *userUseCaseImpl {
+func NewUserUseCase(userRepo domain.UserRepository) *userUseCaseImpl {
 	return &userUseCaseImpl{
 		userRepo: userRepo,
 	}
