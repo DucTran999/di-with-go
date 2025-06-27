@@ -1,16 +1,16 @@
-all: false
-dir: '{{.InterfaceDir}}'
+all: true
+dir: test/mocks
 filename: mocks_test.go
 force-file-write: true
 formatter: goimports
 log-level: info
-structname: '{{.Mock}}{{.InterfaceName}}'
-pkgname: '{{.SrcPackageName}}'
+structname: "{{.Mock}}_{{.InterfaceName}}"
+pkgname: mocks
 recursive: false
 require-template-schema-exists: true
 template: testify
-template-schema: '{{.Template}}.schema.json'
+template-schema: "{{.Template}}.schema.json"
 packages:
-  DucTran999/di-with-go:
+  DucTran999/di-with-go/internal/domain:
     config:
       all: true
