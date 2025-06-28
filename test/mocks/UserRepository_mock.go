@@ -5,7 +5,7 @@
 package mocks
 
 import (
-	"DucTran999/di-with-go/internal/domain"
+	"DucTran999/di-with-go/internal/entity"
 	"context"
 
 	mock "github.com/stretchr/testify/mock"
@@ -39,7 +39,7 @@ func (_m *UserRepository) EXPECT() *UserRepository_Expecter {
 }
 
 // Create provides a mock function for the type UserRepository
-func (_mock *UserRepository) Create(ctx context.Context, user *domain.User) error {
+func (_mock *UserRepository) Create(ctx context.Context, user *entity.User) error {
 	ret := _mock.Called(ctx, user)
 
 	if len(ret) == 0 {
@@ -47,7 +47,7 @@ func (_mock *UserRepository) Create(ctx context.Context, user *domain.User) erro
 	}
 
 	var r0 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, *domain.User) error); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, *entity.User) error); ok {
 		r0 = returnFunc(ctx, user)
 	} else {
 		r0 = ret.Error(0)
@@ -62,20 +62,20 @@ type UserRepository_Create_Call struct {
 
 // Create is a helper method to define mock.On call
 //   - ctx context.Context
-//   - user *domain.User
+//   - user *entity.User
 func (_e *UserRepository_Expecter) Create(ctx interface{}, user interface{}) *UserRepository_Create_Call {
 	return &UserRepository_Create_Call{Call: _e.mock.On("Create", ctx, user)}
 }
 
-func (_c *UserRepository_Create_Call) Run(run func(ctx context.Context, user *domain.User)) *UserRepository_Create_Call {
+func (_c *UserRepository_Create_Call) Run(run func(ctx context.Context, user *entity.User)) *UserRepository_Create_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		var arg0 context.Context
 		if args[0] != nil {
 			arg0 = args[0].(context.Context)
 		}
-		var arg1 *domain.User
+		var arg1 *entity.User
 		if args[1] != nil {
-			arg1 = args[1].(*domain.User)
+			arg1 = args[1].(*entity.User)
 		}
 		run(
 			arg0,
@@ -90,7 +90,7 @@ func (_c *UserRepository_Create_Call) Return(err error) *UserRepository_Create_C
 	return _c
 }
 
-func (_c *UserRepository_Create_Call) RunAndReturn(run func(ctx context.Context, user *domain.User) error) *UserRepository_Create_Call {
+func (_c *UserRepository_Create_Call) RunAndReturn(run func(ctx context.Context, user *entity.User) error) *UserRepository_Create_Call {
 	_c.Call.Return(run)
 	return _c
 }

@@ -1,7 +1,7 @@
 package usecase_test
 
 import (
-	"DucTran999/di-with-go/internal/domain"
+	"DucTran999/di-with-go/internal/entity"
 	"DucTran999/di-with-go/internal/usecase"
 	"DucTran999/di-with-go/test/mocks"
 	"context"
@@ -19,7 +19,7 @@ func TestCreateUser(t *testing.T) {
 		ErrCreateUser := errors.New("failed to insert into DB")
 		mockRepo := mocks.NewUserRepository(t)
 		mockRepo.EXPECT().
-			Create(mock.Anything, mock.AnythingOfType("*domain.User")).
+			Create(mock.Anything, mock.AnythingOfType("*entity.User")).
 			Return(ErrCreateUser)
 		sut := usecase.NewUserUseCase(mockRepo)
 
@@ -35,8 +35,8 @@ func TestCreateUser(t *testing.T) {
 		// Arrange
 		mockRepo := mocks.NewUserRepository(t)
 		mockRepo.EXPECT().
-			Create(mock.Anything, mock.AnythingOfType("*domain.User")).
-			Run(func(ctx context.Context, user *domain.User) {
+			Create(mock.Anything, mock.AnythingOfType("*entity.User")).
+			Run(func(ctx context.Context, user *entity.User) {
 				user.ID = "8888"
 			}).
 			Return(nil)

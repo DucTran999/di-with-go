@@ -12,6 +12,6 @@ template: testify
 template-schema: "{{.Template}}.schema.json"
 
 packages:
-  DucTran999/di-with-go/internal/domain:
+  DucTran999/di-with-go/internal/:
     config:
       all: true

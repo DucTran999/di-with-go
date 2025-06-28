@@ -5,7 +5,7 @@
 package mocks
 
 import (
-	"DucTran999/di-with-go/internal/domain"
+	"DucTran999/di-with-go/internal/entity"
 	"context"
 
 	mock "github.com/stretchr/testify/mock"
@@ -39,23 +39,23 @@ func (_m *UserUseCase) EXPECT() *UserUseCase_Expecter {
 }
 
 // CreateUser provides a mock function for the type UserUseCase
-func (_mock *UserUseCase) CreateUser(ctx context.Context, username string) (*domain.User, error) {
+func (_mock *UserUseCase) CreateUser(ctx context.Context, username string) (*entity.User, error) {
 	ret := _mock.Called(ctx, username)
 
 	if len(ret) == 0 {
 		panic("no return value specified for CreateUser")
 	}
 
-	var r0 *domain.User
+	var r0 *entity.User
 	var r1 error
-	if returnFunc, ok := ret.Get(0).(func(context.Context, string) (*domain.User, error)); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, string) (*entity.User, error)); ok {
 		return returnFunc(ctx, username)
 	}
-	if returnFunc, ok := ret.Get(0).(func(context.Context, string) *domain.User); ok {
+	if returnFunc, ok := ret.Get(0).(func(context.Context, string) *entity.User); ok {
 		r0 = returnFunc(ctx, username)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*domain.User)
+			r0 = ret.Get(0).(*entity.User)
 		}
 	}
 	if returnFunc, ok := ret.Get(1).(func(context.Context, string) error); ok {
@@ -96,12 +96,12 @@ func (_c *UserUseCase_CreateUser_Call) Run(run func(ctx context.Context, usernam
 	return _c
 }
 
-func (_c *UserUseCase_CreateUser_Call) Return(user *domain.User, err error) *UserUseCase_CreateUser_Call {
+func (_c *UserUseCase_CreateUser_Call) Return(user *entity.User, err error) *UserUseCase_CreateUser_Call {
 	_c.Call.Return(user, err)
 	return _c
 }
 
-func (_c *UserUseCase_CreateUser_Call) RunAndReturn(run func(ctx context.Context, username string) (*domain.User, error)) *UserUseCase_CreateUser_Call {
+func (_c *UserUseCase_CreateUser_Call) RunAndReturn(run func(ctx context.Context, username string) (*entity.User, error)) *UserUseCase_CreateUser_Call {
 	_c.Call.Return(run)
 	return _c
 }

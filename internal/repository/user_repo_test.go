@@ -1,7 +1,7 @@
 package repository_test
 
 import (
-	"DucTran999/di-with-go/internal/domain"
+	"DucTran999/di-with-go/internal/entity"
 	"DucTran999/di-with-go/internal/repository"
 	"context"
 	"testing"
@@ -12,7 +12,7 @@ import (
 
 func TestCreate(t *testing.T) {
 	sut := repository.NewUserRepository()
-	user := &domain.User{
+	user := &entity.User{
 		Name: "daniel",
 	}
 	expectedID := "9420"

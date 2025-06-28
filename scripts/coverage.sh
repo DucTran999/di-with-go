@@ -16,7 +16,7 @@ cyan() {
 cyan "🔍 Code coverage analyzing..."
 echo "----------------------------------------------------------------------------------"
 mkdir -p test/coverage
-PKGS=$(go list ./internal/... | grep -v '/domain')
+PKGS=$(go list ./internal/... | grep -v '/entity' | grep -v '/router')
 
 go test -cover $PKGS -coverprofile=test/coverage/coverage.out
 go tool cover -html=test/coverage/coverage.out -o test/coverage/coverage.html

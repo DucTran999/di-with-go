@@ -1,30 +1,42 @@
 package handler_test
 
 import (
-	"DucTran999/di-with-go/internal/domain"
+	"DucTran999/di-with-go/internal/entity"
 	"DucTran999/di-with-go/internal/handler"
 	"DucTran999/di-with-go/test/mocks"
-	"context"
 	"errors"
+	"net/http"
+	"net/http/httptest"
 	"testing"
 
+	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/mock"
 )
 
 func TestRegisterUser(t *testing.T) {
+	// Create a test Gin context
+	gin.SetMode(gin.TestMode)
+	w := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(w)
+
+	// Create a test HTTP request (e.g., POST /users with JSON body)
+	c.Request, _ = http.NewRequest(http.MethodPost, "/users", nil)
+	c.Params = append(c.Params, gin.Param{Key: "username", Value: "daniel"})
+
 	t.Run("create user failed", func(t *testing.T) {
 		ErrCreateUser := errors.New("failed to create user")
 		mockUsecase := mocks.NewUserUseCase(t)
 		mockUsecase.EXPECT().
 			CreateUser(mock.Anything, mock.AnythingOfType("string")).
 			Return(nil, ErrCreateUser)
+
 		sut := handler.NewUserHandler(mockUsecase)
 
-		sut.RegisterUser(context.Background(), "daniel")
+		sut.RegisterUser(c, "daniel")
 	})
 
 	t.Run("create user success", func(t *testing.T) {
-		user := &domain.User{
+		user := &entity.User{
 			Name: "daniel",
 			ID:   "9420",
 		}
@@ -34,6 +46,6 @@ func TestRegisterUser(t *testing.T) {
 			Return(user, nil)
 		sut := handler.NewUserHandler(mockUsecase)
 
-		sut.RegisterUser(context.Background(), "daniel")
+		sut.RegisterUser(c, "daniel")
 	})
 }

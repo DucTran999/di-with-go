@@ -1,22 +1,26 @@
 package usecase
 
 import (
-	"DucTran999/di-with-go/internal/domain"
+	"DucTran999/di-with-go/internal/entity"
 	"context"
 )
 
-type userUseCaseImpl struct {
-	userRepo domain.UserRepository
+type UserRepository interface {
+	Create(ctx context.Context, user *entity.User) error
 }
 
-func NewUserUseCase(userRepo domain.UserRepository) *userUseCaseImpl {
+type userUseCaseImpl struct {
+	userRepo UserRepository
+}
+
+func NewUserUseCase(userRepo UserRepository) *userUseCaseImpl {
 	return &userUseCaseImpl{
 		userRepo: userRepo,
 	}
 }
 
-func (r *userUseCaseImpl) CreateUser(ctx context.Context, username string) (*domain.User, error) {
-	user := domain.User{
+func (r *userUseCaseImpl) CreateUser(ctx context.Context, username string) (*entity.User, error) {
+	user := entity.User{
 		Name: username,
 	}
 	if err := r.userRepo.Create(ctx, &user); err != nil {
