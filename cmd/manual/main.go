@@ -10,7 +10,9 @@ func main() {
 	app := InitApp()
 
 	err := app.Run("localhost:9420")
-	if err != nil && errors.Is(err, http.ErrServerClosed) {
+	if err != nil && !errors.Is(err, http.ErrServerClosed) {
 		log.Fatalf("server err: %v", err)
+	} else {
+		log.Println("[INFO] shutdown server gracefully")
 	}
 }
