@@ -13,6 +13,7 @@ This project demonstrates how to implement Dependency Injection (DI) in Go using
 
 - Manual DI
 - DI with Wire
+- DI with Fx and dig
 
 ---
 
