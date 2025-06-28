@@ -28,9 +28,12 @@ func (a *App) Run(address string) error {
 
 func InitApp() *App {
 	wire.Build(
-		repository.UserRepoProvider,
-		usecase.UserUsecaseProvider,
-		handler.UserHandlerProvider,
+		repository.NewUserRepository,
+		wire.Bind(new(usecase.UserRepository), new(*repository.UserRepositoryImpl)),
+		usecase.NewUserUseCase,
+		wire.Bind(new(handler.UserUseCase), new(*usecase.UserUseCaseImpl)),
+		handler.NewUserHandler,
+		wire.Bind(new(router.UserHandler), new(*handler.UserHandler)),
 		router.SetupRoutes,
 		NewApp,
 	)

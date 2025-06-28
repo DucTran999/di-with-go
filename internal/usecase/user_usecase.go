@@ -9,17 +9,17 @@ type UserRepository interface {
 	Create(ctx context.Context, user *entity.User) error
 }
 
-type userUseCaseImpl struct {
+type UserUseCaseImpl struct {
 	userRepo UserRepository
 }
 
-func NewUserUseCase(userRepo UserRepository) *userUseCaseImpl {
-	return &userUseCaseImpl{
+func NewUserUseCase(userRepo UserRepository) *UserUseCaseImpl {
+	return &UserUseCaseImpl{
 		userRepo: userRepo,
 	}
 }
 
-func (r *userUseCaseImpl) CreateUser(ctx context.Context, username string) (*entity.User, error) {
+func (r *UserUseCaseImpl) CreateUser(ctx context.Context, username string) (*entity.User, error) {
 	user := entity.User{
 		ID:   "",
 		Name: username,
