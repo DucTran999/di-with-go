@@ -14,10 +14,12 @@ type UserUseCase interface {
 	CreateUser(ctx context.Context, username string) (*entity.User, error)
 }
 
+// UserHandler handles HTTP requests for user operations.
 type UserHandler struct {
 	userUC UserUseCase
 }
 
+// NewUserHandler creates a new instance of UserHandler.
 func NewUserHandler(userUC UserUseCase) *UserHandler {
 	return &UserHandler{
 		userUC: userUC,

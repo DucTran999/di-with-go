@@ -5,8 +5,10 @@ import (
 	"context"
 )
 
+// UserRepository provides database operations for user entities.
 type UserRepository struct{}
 
+// NewUserRepository creates a new instance of UserRepository.
 func NewUserRepository() *UserRepository {
 	return &UserRepository{}
 }
