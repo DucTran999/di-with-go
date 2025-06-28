@@ -5,13 +5,13 @@ import (
 	"context"
 )
 
-type UserRepositoryImpl struct{}
+type UserRepository struct{}
 
-func NewUserRepository() *UserRepositoryImpl {
-	return &UserRepositoryImpl{}
+func NewUserRepository() *UserRepository {
+	return &UserRepository{}
 }
 
-func (r *UserRepositoryImpl) Create(ctx context.Context, user *entity.User) error {
+func (r *UserRepository) Create(ctx context.Context, user *entity.User) error {
 	// Simulate that insert in db success and got id 9420
 	user.ID = "9420"
 
