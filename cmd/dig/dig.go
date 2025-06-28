@@ -15,19 +15,31 @@ func InitApp() *App {
 	container := dig.New()
 
 	// Provide all dependencies
-	container.Provide(repository.NewUserRepository, dig.As(new(usecase.UserRepository)))
-	container.Provide(usecase.NewUserUseCase, dig.As(new(handler.UserUseCase)))
-	container.Provide(handler.NewUserHandler, dig.As(new(router.UserHandler)))
-	container.Provide(router.SetupRoutes)
-	container.Provide(NewApp)
+	if err := container.Provide(repository.NewUserRepository, dig.As(new(usecase.UserRepository))); err != nil {
+		log.Fatalf("failed to provide UserRepository: %v", err)
+	}
+
+	if err := container.Provide(usecase.NewUserUseCase, dig.As(new(handler.UserUseCase))); err != nil {
+		log.Fatalf("failed to provide UserUseCase: %v", err)
+	}
+
+	if err := container.Provide(handler.NewUserHandler, dig.As(new(router.UserHandler))); err != nil {
+		log.Fatalf("failed to provide UserHandler: %v", err)
+	}
+
+	if err := container.Provide(router.SetupRoutes); err != nil {
+		log.Fatalf("failed to provide SetupRoutes: %v", err)
+	}
+
+	if err := container.Provide(NewApp); err != nil {
+		log.Fatalf("failed to provide App: %v", err)
+	}
 
 	var app *App
-
-	err := container.Invoke(func(a *App) {
+	if err := container.Invoke(func(a *App) {
 		app = a
-	})
-	if err != nil {
-		log.Fatalf("failed to build App: %v", err)
+	}); err != nil {
+		log.Fatalf("failed to invoke App: %v", err)
 	}
 
 	return app
