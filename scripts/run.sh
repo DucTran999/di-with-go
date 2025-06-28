@@ -16,6 +16,7 @@ function show_menu() {
     echo "1) Example DI manual"
     echo "2) Example DI with wire"
     echo "3) Example DI with fx"
+    echo "4) Example DI with dig"
     echo "0) Exit"
     echo -n "Select option: "
 }
@@ -31,6 +32,9 @@ case $option in
     ;;
 3)
     go run ./cmd/fx/
+    ;;
+4)
+    go run ./cmd/dig/
     ;;
 0)
     echo "👋 Goodbye!"

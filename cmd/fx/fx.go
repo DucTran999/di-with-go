@@ -5,6 +5,8 @@ import (
 	"DucTran999/di-with-go/internal/repository"
 	"DucTran999/di-with-go/internal/router"
 	"DucTran999/di-with-go/internal/usecase"
+	"context"
+	"log"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/fx"
@@ -13,7 +15,7 @@ import (
 func InitApp() *App {
 	var app *App
 
-	fx.New(
+	fxApp := fx.New(
 		fx.Provide(
 			fx.Annotate(
 				repository.NewUserRepository,
@@ -34,6 +36,11 @@ func InitApp() *App {
 			app = a
 		}),
 	)
+
+	if err := fxApp.Start(context.Background()); err != nil {
+		log.Fatalf("failed to start fx app: %v", err)
+	}
+
 	return app
 }
 
