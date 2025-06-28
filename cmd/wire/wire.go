@@ -22,6 +22,9 @@ func NewApp(router *gin.Engine) *App {
 		router: router,
 	}
 }
+func (a *App) Run(address string) error {
+	return a.router.Run(address)
+}
 
 func InitApp() *App {
 	wire.Build(

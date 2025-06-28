@@ -36,3 +36,7 @@ func NewApp(router2 *gin.Engine) *App {
 		router: router2,
 	}
 }
+
+func (a *App) Run(address string) error {
+	return a.router.Run(address)
+}

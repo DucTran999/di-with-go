@@ -30,6 +30,6 @@ func NewApp(router *gin.Engine) *App {
 	}
 }
 
-func (a *App) Run(address string) {
-	a.router.Run(address)
+func (a *App) Run(address string) error {
+	return a.router.Run(address)
 }
