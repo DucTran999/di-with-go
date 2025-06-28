@@ -21,6 +21,7 @@ func NewUserUseCase(userRepo UserRepository) *userUseCaseImpl {
 
 func (r *userUseCaseImpl) CreateUser(ctx context.Context, username string) (*entity.User, error) {
 	user := entity.User{
+		ID:   "",
 		Name: username,
 	}
 	if err := r.userRepo.Create(ctx, &user); err != nil {
