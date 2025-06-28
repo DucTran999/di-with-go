@@ -17,9 +17,9 @@ import (
 // Injectors from wire.go:
 
 func InitApp() *App {
-	userRepositoryImpl := repository.NewUserRepository()
-	userUseCaseImpl := usecase.NewUserUseCase(userRepositoryImpl)
-	userHandler := handler.NewUserHandler(userUseCaseImpl)
+	userRepository := repository.NewUserRepository()
+	userUseCase := usecase.NewUserUseCase(userRepository)
+	userHandler := handler.NewUserHandler(userUseCase)
 	engine := router.SetupRoutes(userHandler)
 	app := NewApp(engine)
 	return app

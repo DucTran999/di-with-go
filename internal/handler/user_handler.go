@@ -14,17 +14,19 @@ type UserUseCase interface {
 	CreateUser(ctx context.Context, username string) (*entity.User, error)
 }
 
-type userHandler struct {
+// UserHandler handles HTTP requests for user operations.
+type UserHandler struct {
 	userUC UserUseCase
 }
 
-func NewUserHandler(userUC UserUseCase) *userHandler {
-	return &userHandler{
+// NewUserHandler creates a new instance of UserHandler.
+func NewUserHandler(userUC UserUseCase) *UserHandler {
+	return &UserHandler{
 		userUC: userUC,
 	}
 }
 
-func (hdl *userHandler) RegisterUser(ctx *gin.Context, username string) {
+func (hdl *UserHandler) RegisterUser(ctx *gin.Context, username string) {
 	user, err := hdl.userUC.CreateUser(ctx, username)
 	if err != nil {
 		log.Printf("[ERROR] failed to create user: %v", err)
