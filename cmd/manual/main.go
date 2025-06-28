@@ -1,16 +1,7 @@
 package main
 
-import (
-	"DucTran999/di-with-go/internal/handler"
-	"DucTran999/di-with-go/internal/repository"
-	"DucTran999/di-with-go/internal/usecase"
-	"context"
-)
-
 func main() {
-	userRepo := repository.NewUserRepository()
-	userUC := usecase.NewUserUseCase(userRepo)
-	userHdl := handler.NewUserHandler(userUC)
+	app := InitApp()
 
-	userHdl.RegisterUser(context.Background(), "daniel")
+	app.Run("localhost:9420")
 }

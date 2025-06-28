@@ -1,10 +1,9 @@
 //go:build !unit
 // +build !unit
 
-package domain
+package entity
 
 import (
-	"context"
 	"errors"
 	"strings"
 )
@@ -23,8 +22,4 @@ func (u *User) Validate() error {
 		return ErrMissingUsername
 	}
 	return nil
-}
-
-type UserRepository interface {
-	Create(ctx context.Context, user *User) error
 }

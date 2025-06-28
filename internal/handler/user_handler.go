@@ -1,27 +1,44 @@
 package handler
 
 import (
-	"DucTran999/di-with-go/internal/domain"
+	"DucTran999/di-with-go/internal/entity"
 	"context"
+	"fmt"
 	"log"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-type userHandler struct {
-	userUC domain.UserUseCase
+type UserUseCase interface {
+	CreateUser(ctx context.Context, username string) (*entity.User, error)
 }
 
-func NewUserHandler(userUC domain.UserUseCase) *userHandler {
+type userHandler struct {
+	userUC UserUseCase
+}
+
+func NewUserHandler(userUC UserUseCase) *userHandler {
 	return &userHandler{
 		userUC: userUC,
 	}
 }
 
-func (hdl *userHandler) RegisterUser(ctx context.Context, username string) {
+func (hdl *userHandler) RegisterUser(ctx *gin.Context, username string) {
 	user, err := hdl.userUC.CreateUser(ctx, username)
 	if err != nil {
 		log.Printf("[ERROR] failed to create user: %v", err)
+		ctx.JSON(http.StatusInternalServerError, map[string]any{
+			"code":    500,
+			"message": http.StatusText(http.StatusInternalServerError),
+		})
 		return
 	}
 
-	log.Printf("[INFO] user created name=%s, id=%s", user.Name, user.ID)
+	successResp := map[string]any{
+		"code":    200,
+		"message": fmt.Sprintf("%s(%s): playing di", user.Name, user.ID),
+	}
+
+	ctx.JSON(http.StatusOK, successResp)
 }
