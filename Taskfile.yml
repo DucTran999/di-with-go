@@ -1,0 +1,40 @@
+version: "3"
+
+dotenv:
+  - ".env"
+
+tasks:
+  default:
+    desc: "show all available tasks"
+    cmds:
+      - task --list-all
+    silent: true
+
+  run:
+    desc: "start the app"
+    cmds:
+      - ./scripts/run.sh
+    silent: true
+
+  tidy:
+    desc: install pkg listed in go.mod
+    cmds:
+      - go mod tidy
+
+  coverage:
+    desc: run unit test and force coverage > 80%
+    cmds:
+      - ./scripts/coverage.sh
+
+  deps:
+    desc: install dependencies
+    cmds:
+      - go install github.com/vektra/mockery/v3@v3.4.0
+
+  mock:
+    desc: Auto-generate mocks for all interfaces
+    cmds:
+      - rm -rf test/mocks/* # 💥 Clean old mocks
+      - mockery
+      - go mod tidy
+    silent: false
