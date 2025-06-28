@@ -1,12 +1,12 @@
 package repository
 
 import (
-	"DucTran999/di-with-go/internal/domain"
+	"DucTran999/di-with-go/internal/usecase"
 
 	"github.com/google/wire"
 )
 
-var UserRepositoryProvider = wire.NewSet(
+var UserRepoProvider = wire.NewSet(
 	NewUserRepository,
-	wire.Bind(new(domain.UserRepository), new(*userRepositoryImpl)),
+	wire.Bind(new(usecase.UserRepository), new(*userRepositoryImpl)),
 )

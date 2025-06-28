@@ -1,12 +1,12 @@
 package handler
 
 import (
-	"DucTran999/di-with-go/internal/domain/inbound"
+	"DucTran999/di-with-go/internal/router"
 
 	"github.com/google/wire"
 )
 
 var UserHandlerProvider = wire.NewSet(
 	NewUserHandler,
-	wire.Bind(new(inbound.UserHandler), new(*userHandler)),
+	wire.Bind(new(router.UserHandler), new(*userHandler)),
 )

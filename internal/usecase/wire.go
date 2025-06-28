@@ -1,12 +1,14 @@
 package usecase
 
 import (
-	"DucTran999/di-with-go/internal/domain"
+	"DucTran999/di-with-go/internal/handler"
 
 	"github.com/google/wire"
 )
 
-var UserUseCaseProvider = wire.NewSet(
+// Another options is public userUseCaseImpl
+// import interface form handler is Dependency Violation
+var UserUsecaseProvider = wire.NewSet(
 	NewUserUseCase,
-	wire.Bind(new(domain.UserUseCase), new(*userUseCaseImpl)),
+	wire.Bind(new(handler.UserUseCase), new(*userUseCaseImpl)),
 )

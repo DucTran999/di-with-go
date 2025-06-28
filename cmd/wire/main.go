@@ -1,9 +1,7 @@
 package main
 
-import "context"
-
 func main() {
-	userHandler := InitUserHandler()
+	app := InitApp()
 
-	userHandler.RegisterUser(context.Background(), "daniel")
+	app.router.Run("localhost:9420")
 }
