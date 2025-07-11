@@ -5,6 +5,7 @@ import (
 	"DucTran999/di-with-go/internal/repository"
 	"DucTran999/di-with-go/internal/router"
 	"DucTran999/di-with-go/internal/usecase"
+	"DucTran999/di-with-go/internal/usecase/port"
 	"context"
 	"log"
 
@@ -19,16 +20,10 @@ func InitApp() *App {
 		fx.Provide(
 			fx.Annotate(
 				repository.NewUserRepository,
-				fx.As(new(usecase.UserRepository)),
+				fx.As(new(port.UserRepository)),
 			),
-			fx.Annotate(
-				usecase.NewUserUseCase,
-				fx.As(new(handler.UserUseCase)),
-			),
-			fx.Annotate(
-				handler.NewUserHandler,
-				fx.As(new(router.UserHandler)),
-			),
+			usecase.NewUserUseCase,
+			handler.NewUserHandler,
 			router.SetupRoutes,
 			NewApp,
 		),
