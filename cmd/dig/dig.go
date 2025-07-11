@@ -5,6 +5,7 @@ import (
 	"DucTran999/di-with-go/internal/repository"
 	"DucTran999/di-with-go/internal/router"
 	"DucTran999/di-with-go/internal/usecase"
+	"DucTran999/di-with-go/internal/usecase/port"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -15,15 +16,15 @@ func InitApp() *App {
 	container := dig.New()
 
 	// Provide all dependencies
-	if err := container.Provide(repository.NewUserRepository, dig.As(new(usecase.UserRepository))); err != nil {
+	if err := container.Provide(repository.NewUserRepository, dig.As(new(port.UserRepository))); err != nil {
 		log.Fatalf("failed to provide UserRepository: %v", err)
 	}
 
-	if err := container.Provide(usecase.NewUserUseCase, dig.As(new(handler.UserUseCase))); err != nil {
+	if err := container.Provide(usecase.NewUserUseCase); err != nil {
 		log.Fatalf("failed to provide UserUseCase: %v", err)
 	}
 
-	if err := container.Provide(handler.NewUserHandler, dig.As(new(router.UserHandler))); err != nil {
+	if err := container.Provide(handler.NewUserHandler); err != nil {
 		log.Fatalf("failed to provide UserHandler: %v", err)
 	}
 

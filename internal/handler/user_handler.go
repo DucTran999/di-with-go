@@ -1,8 +1,7 @@
 package handler
 
 import (
-	"DucTran999/di-with-go/internal/entity"
-	"context"
+	"DucTran999/di-with-go/internal/usecase/port"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,17 +9,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UserUseCase interface {
-	CreateUser(ctx context.Context, username string) (*entity.User, error)
-}
-
-// UserHandler handles HTTP requests for user operations.
+// userHandler handles HTTP requests for user operations.
 type UserHandler struct {
-	userUC UserUseCase
+	userUC port.UserUsecase
 }
 
 // NewUserHandler creates a new instance of UserHandler.
-func NewUserHandler(userUC UserUseCase) *UserHandler {
+func NewUserHandler(userUC port.UserUsecase) *UserHandler {
 	return &UserHandler{
 		userUC: userUC,
 	}

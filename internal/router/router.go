@@ -1,14 +1,12 @@
 package router
 
 import (
+	"DucTran999/di-with-go/internal/handler"
+
 	"github.com/gin-gonic/gin"
 )
 
-type UserHandler interface {
-	RegisterUser(ctx *gin.Context, username string)
-}
-
-func SetupRoutes(userHandler UserHandler) *gin.Engine {
+func SetupRoutes(userHandler *handler.UserHandler) *gin.Engine {
 	router := gin.Default()
 
 	router.GET("/join/:username", func(c *gin.Context) {

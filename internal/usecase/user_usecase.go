@@ -2,26 +2,23 @@ package usecase
 
 import (
 	"DucTran999/di-with-go/internal/entity"
+	"DucTran999/di-with-go/internal/usecase/port"
 	"context"
 )
 
-type UserRepository interface {
-	Create(ctx context.Context, user *entity.User) error
+// UserUsecase handles business logic for user operations.
+type userUsecase struct {
+	userRepo port.UserRepository
 }
 
-// UserUseCase handles business logic for user operations.
-type UserUseCase struct {
-	userRepo UserRepository
-}
-
-// NewUserUseCase creates a new instance of UserUseCase.
-func NewUserUseCase(userRepo UserRepository) *UserUseCase {
-	return &UserUseCase{
+// NewUserUsecase creates a new instance of UserUsecase.
+func NewUserUseCase(userRepo port.UserRepository) port.UserUsecase {
+	return &userUsecase{
 		userRepo: userRepo,
 	}
 }
 
-func (r *UserUseCase) CreateUser(ctx context.Context, username string) (*entity.User, error) {
+func (r *userUsecase) CreateUser(ctx context.Context, username string) (*entity.User, error) {
 	user := entity.User{
 		ID:   "",
 		Name: username,
